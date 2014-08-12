@@ -1,8 +1,4 @@
-package check_test
-
-import (
-    .   "gopkg.in/check.v1"
-)
+package check
 
 var _ = Suite(&PrinterS{})
 

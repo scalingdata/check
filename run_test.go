@@ -1,10 +1,9 @@
 // These tests verify the test running logic.
 
-package check_test
+package check
 
 import (
 	"errors"
-	. "gopkg.in/check.v1"
 	"os"
 	"sync"
 )
