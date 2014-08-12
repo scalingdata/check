@@ -20,7 +20,7 @@ func (s *BenchmarkS) TestBasicTestTiming(c *C) {
 	runConf := RunConf{Output: &output, Verbose: true}
 	Run(&helper, &runConf)
 
-	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test1\t0\\.001s\n" +
+	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test1\t0\\.00[0-9]s\n" +
 		"PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test2\t0\\.000s\n"
 	c.Assert(output.value, Matches, expected)
 }
@@ -31,7 +31,7 @@ func (s *BenchmarkS) TestStreamTestTiming(c *C) {
 	runConf := RunConf{Output: &output, Stream: true}
 	Run(&helper, &runConf)
 
-	expected := "(?s).*\nPASS: check_test\\.go:[0-9]+: FixtureHelper\\.SetUpSuite\t *0\\.001s\n.*"
+	expected := "(?s).*\nPASS: check_test\\.go:[0-9]+: FixtureHelper\\.SetUpSuite\t*0\\.00[0-9]s\n.*"
 	c.Assert(output.value, Matches, expected)
 }
 
@@ -54,7 +54,7 @@ func (s *BenchmarkS) TestBenchmark(c *C) {
 	c.Check(helper.calls[6], Equals, "TearDownTest")
 	// ... and more.
 
-	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark1\t *100\t *[12][0-9]{5} ns/op\n"
+	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark1\t *[0-9]*\t *[0-9]{6} ns/op\n"
 	c.Assert(output.value, Matches, expected)
 }
 
@@ -69,7 +69,7 @@ func (s *BenchmarkS) TestBenchmarkBytes(c *C) {
 	}
 	Run(&helper, &runConf)
 
-	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark2\t *100\t *[12][0-9]{5} ns/op\t *[4-9]\\.[0-9]{2} MB/s\n"
+	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark2\t *[0-9]*\t *[0-9]{6} ns/op\t *[0-9]\\.[0-9]{2} MB/s\n"
 	c.Assert(output.value, Matches, expected)
 }
 
@@ -85,6 +85,6 @@ func (s *BenchmarkS) TestBenchmarkMem(c *C) {
 	}
 	Run(&helper, &runConf)
 
-	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark3\t *100\t *[12][0-9]{5} ns/op\t *4[48] B/op\t *1 allocs/op\n"
+	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Benchmark3\t *[0-9]*\t *[0-9]{6} ns/op\t *[0-9]{2} B/op\t *1 allocs/op\n"
 	c.Assert(output.value, Matches, expected)
 }
