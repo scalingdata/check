@@ -133,10 +133,11 @@ type tempDir struct {
 func (td *tempDir) newPath() string {
 	td.Lock()
 	defer td.Unlock()
+	randSrc := rand.NewSource(time.Now().UnixNano())
 	if td.path == "" {
 		var err error
 		for i := 0; i != 100; i++ {
-			path := fmt.Sprintf("%s/check-%d", os.TempDir(), rand.Int())
+			path := fmt.Sprintf("%s/check-%d", os.TempDir(), randSrc.Int63())
 			if err = os.Mkdir(path, 0700); err == nil {
 				td.path = path
 				break

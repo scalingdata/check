@@ -409,7 +409,7 @@ func (s *RunS) TestKeepWorkDir(c *C) {
 	output := String{}
 	runConf := RunConf{Output: &output, Verbose: true, KeepWorkDir: true}
 	result := Run(&WorkDirSuite{}, &runConf)
-
+	defer os.RemoveAll(result.WorkDir)
 	c.Assert(result.String(), Matches, ".*\nWORK=" + result.WorkDir)
 
 	stat, err := os.Stat(result.WorkDir)
