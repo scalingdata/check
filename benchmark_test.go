@@ -20,8 +20,8 @@ func (s *BenchmarkS) TestBasicTestTiming(c *C) {
 	runConf := RunConf{Output: &output, Verbose: true}
 	Run(&helper, &runConf)
 
-	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test1\t0\\.00[0-9]s\n" +
-		"PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test2\t0\\.000s\n"
+	expected := "PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test1\t0\\.[0-9]{3}s\n" +
+		"PASS: check_test\\.go:[0-9]+: FixtureHelper\\.Test2\t0\\.[0-9]{3}s\n"
 	c.Assert(output.value, Matches, expected)
 }
 
